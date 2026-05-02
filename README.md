@@ -1,2 +1,63 @@
-# Boids-3D-Taichi-SpatialGrid
-Ecossistema de Boids 3D com comportamentos de flocking, predação e busca por alimento. Implementado em Python com Taichi e particionamento espacial.
+# Boids 3D Ecosystem Simulation
+
+![Taichi](https://img.shields.io/badge/Taichi-High_Performance-blue)
+![Python](https://img.shields.io/badge/Python-3.12-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+> Uma simulação de vida artificial e comportamentos emergentes em tempo real, renderizando 50.000 partículas simultâneas através de aceleração massiva em GPU.
+
+<div align="center">
+  <img src="demonstrations/50000_boids/video.gif" alt="Demonstração do Boids 3D com 50.000 Boids" width="600">
+</div>
+
+## Sobre o Projeto
+
+Este projeto implementa o clássico algoritmo de **Boids** (desenvolvido por Craig Reynolds em 1986) em um ambiente 3D. Em vez de calcular as interações na CPU, a simulação foi construída utilizando a linguagem/biblioteca **Taichi**, o que permite compilar o código Python diretamente para kernels de GPU (Cuda/Vulkan). 
+
+## Funcionalidades
+
+A simulação vai além do *flocking* básico e inclui regras avançadas de sobrevivência e física:
+
+*   **Regras Clássicas (Flocking):**
+    *   *Coesão:* Boids tentam se aproximar do centro de massa dos vizinhos.
+    *   *Alinhamento:* Boids alinham sua velocidade e direção com o grupo.
+    *   *Separação:* Boids evitam colisões entre si (espaço pessoal).
+*   **Instintos de Sobrevivência:**
+    *   *Predadores (Hunting/Fleeing):* Boids maiores (vermelhos) caçam o boid mais próximo. Boids normais (azuis) possuem um multiplicador de visão para fugir do perigo.
+    *   *Alimentação (Foraging):* Boids são atraídos por pontos de comida (verdes) espalhados pelo ambiente.
+*   **Física e Ambiente:** 
+    *   Sistema de bordas invisíveis (Steer away from edges).
+    *   Aceleração por gravidade e ganho de velocidade em mergulhos (*Dive Boost*).
+
+## Como Executar na Sua Máquina
+
+### Pré-requisitos
+Certifique-se de ter o Python 3.9+ instalado e uma placa de vídeo dedicada (recomendado para alta contagem de partículas).
+
+### Instalação
+```bash
+# Clone o repositório
+git clone https://github.com/Leandroc728/Boids-3D-Taichi-SpatialGrid.git
+
+# Entre na pasta
+cd Boids-3D-Taichi-SpatialGrid
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Execute
+python main.py
+```
+## Interface de Usuário
+
+O projeto inclui um painel de controle interativo onde é possível ajustar as variáveis em tempo real:
+
+* Sliders de Pesos: Altere a intensidade de coesão, separação e medo.
+* Raio de Percepção: Ajuste quão longe cada boid consegue "enxergar".
+* Controle de Câmera: Utilize o Botão Direito do Mouse para rotacionar e navegar no espaço 3D.
+
+## Ferramentas e referências
+
+* Python 3.12: Linguagem base.
+* Taichi Lang: Compilação JIT para GPU.
+* Revisão e Correções: Gemini CLI
