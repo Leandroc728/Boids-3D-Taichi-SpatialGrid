@@ -60,4 +60,3 @@ O projeto inclui um painel de controle interativo onde é possível ajustar as v
 
 * Python 3.12: Linguagem base.
 * Taichi Lang: Compilação JIT para GPU.
-* Revisão e Correções: Gemini CLI
