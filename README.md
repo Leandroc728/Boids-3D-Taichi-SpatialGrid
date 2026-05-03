@@ -63,7 +63,7 @@ O projeto inclui um painel de controle interativo onde é possível ajustar as v
 * Raio de Percepção: Ajuste quão longe cada boid consegue "enxergar".
 * Controle de Câmera: Utilize o Botão Direito do Mouse para rotacionar e as teclas para navegar no espaço 3D(W, A, S, D, Q, R).
 
-## Ferramentas e referências
+## Ferramentas
 
 * Python 3.12: Linguagem base.
 * Taichi Lang: Compilação JIT para GPU.
