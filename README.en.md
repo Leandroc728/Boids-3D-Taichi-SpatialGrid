@@ -14,12 +14,24 @@
 
 This project implements the **Boids** algorithm (developed by Craig Reynolds in 1986) in a 3D environment. Instead of calculating interactions on the CPU, the simulation was built using the **Taichi** programming language/library, which allows compiling Python code directly into high-performance GPU kernels (CUDA/Vulkan). Advanced data structuring techniques were also implemented to maximize processing efficiency.
 
-## Architecture & Optimization
+## Architecture and Optimization
 
-To overcome the classic O(N²) complexity bottleneck and execute parallel processing effectively, the project relies on two essential optimization techniques:
+To overcome the O(N²) complexity bottleneck and leverage massive GPU processing, the project relies on two fundamental strategies:
 
-*   **Uniform Spatial Grid:** The 3D space is divided into a grid of small cells, drastically reducing the search space for each Boid. Consequently, each boid only searches for and interacts with neighbors located within its own cell or immediately adjacent ones.
-*   **Data-Oriented Programming (DOP):** The code structure was designed specifically for how GPUs consume data. Utilizing Taichi's **fields**, boid data (such as position, velocity, and color) is aligned sequentially in memory. This organization ensures the GPU accesses information with maximum throughput and minimal latency.
+### 1. Uniform Spatial Grid (USG)
+The 3D space is subdivided into a grid of fixed-size cells. Instead of each Boid comparing its position with all other N elements in the simulation, it only queries its own cell and the 26 neighboring cells.
+* **O(N) Guarantee:** To ensure performance even in high-density scenarios, I implemented a strict search limit per cell (`max_boids_per_cell`). This transforms the neighbor search into an O(1) constant time operation per boid, resulting in an overall O(N) linear complexity.
+
+### 2. Data-Oriented Programming (DOP)
+Unlike traditional Object-Oriented Programming, where data is scattered in memory, I used the **DOP** approach through Taichi fields (`ti.field`).
+* **Memory Layout:** Position and velocity data are stored contiguously. This maximizes data locality and allows the GPU to perform much more efficient global memory accesses, drastically reducing processing latency.
+
+---
+
+### Technical Results
+* **Complexity:** Reduced from O(N²) to O(N).
+* **Scalability:** Ability to process **50,000 agents** simultaneously.
+* **Efficiency:** Smooth execution (40+ FPS) even on entry-level/integrated hardware (Intel Iris Xe).
 
 ## Features
 
