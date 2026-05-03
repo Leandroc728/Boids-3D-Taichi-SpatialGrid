@@ -21,9 +21,9 @@ A simulação vai além do *flocking* básico e inclui regras avançadas de sobr
 *   **Regras Clássicas (Flocking):**
     *   *Coesão:* Boids tentam se aproximar do centro de massa dos vizinhos.
     *   *Alinhamento:* Boids alinham sua velocidade e direção com o grupo.
-    *   *Separação:* Boids evitam colisões entre si (espaço pessoal).
+    *   *Separação:* Boids evitam colisões entre si.
 *   **Instintos de Sobrevivência:**
-    *   *Predadores (Hunting/Fleeing):* Boids maiores (vermelhos) caçam o boid mais próximo. Boids normais (azuis) possuem um multiplicador de visão para fugir do perigo.
+    *   *Predadores (Hunting/Fleeing):* Boids vermelhos caçam o boid mais próximo. Boids azuis possuem um multiplicador de visão para fugir do perigo.
     *   *Alimentação (Foraging):* Boids são atraídos por pontos de comida (verdes) espalhados pelo ambiente.
 *   **Física e Ambiente:** 
     *   Sistema de bordas invisíveis (Steer away from edges).
