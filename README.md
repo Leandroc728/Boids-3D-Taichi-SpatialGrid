@@ -16,10 +16,23 @@ Este projeto implementa o algoritmo de **Boids** (desenvolvido por Craig Reynold
 
 ## Arquitetura e Otimização
 
-Para contornar o gargalo de complexidade O(N²) e executar o processamento em paralelo de forma eficiente, o projeto se apoia em duas técnicas essenciais:
+Para superar o gargalo de complexidade O(N²) e aproveitar o processamento massivo da GPU, o projeto utiliza duas estratégias fundamentais:
 
-*   **Uniform Spatial Grid:** O espaço 3D é dividido em pequenas células estruturadas em grade, reduzindo o espaço de busca para cada Boid. Assim, cada boid só procura e interage com vizinhos que estão dentro da sua própria célula ou nas células coladas nela.
-*   **Data-Oriented Programming:** A estrutura do código foi implementada pensando em como a placa de vídeo prefere consumir informações. Usando os campos do Taichi, os dados de todos os boids são alinhados sequencialmente na memória. Essa organização garante que a GPU consiga acessar as informações o mais rápido possível.
+### 1. Uniform Spatial Grid (USG)
+O espaço 3D é subdividido em uma grade de células de tamanho fixo. Em vez de cada Boid comparar sua posição com todos os outros N elementos da simulação, ele consulta apenas a sua própria célula e as 26 células vizinhas.
+* **Garantia de O(N):** Para assegurar a performance mesmo em cenários de alta densidade, implementei um limite rígido de busca por célula (`max_boids_per_cell`). Isso transforma a busca de vizinhos em uma operação de tempo constante O(1) por boid, resultando em uma complexidade global linear O(N).
+
+### 2. Data-Oriented Programming (DOP)
+Diferente da Programação Orientada a Objetos tradicional, onde os dados ficam dispersos na memória, foi utilizado a abordagem **DOP** através dos campos (`ti.field`) do Taichi.
+* **Layout de Memória:** Os dados de posição e velocidade são armazenados de forma contígua. Isso maximiza a localidade de dados e permite que a GPU realize acessos globais de memória muito mais eficientes, reduzindo drasticamente a latência de processamento.
+
+---
+
+### O Resultado Técnico
+* **Complexidade:** Redução de O(N²) para O(N).
+* **Escalabilidade:** Capacidade de processar **50.000 agentes** simultaneamente.
+* **Eficiência:** Execução fluida (40+ FPS) mesmo em hardware de entrada/integrado (Intel Iris Xe).
+O algoritmo se tornou então de complexidade assintótica O(N), além de ser otimizado para o acesso de dados pela GPU.
 
 ## Funcionalidades
 
