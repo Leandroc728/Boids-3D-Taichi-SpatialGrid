@@ -44,7 +44,7 @@ Ensure you have Python 3.9+ installed and a dedicated GPU.
 ### Installation
 ```bash
 # Clone the repository
-git clone [https://github.com/Leandroc728/Boids-3D-Taichi-SpatialGrid.git](https://github.com/Leandroc728/Boids-3D-Taichi-SpatialGrid.git)
+git clone https://github.com/Leandroc728/Boids-3D-Taichi-SpatialGrid.git
 
 # Enter the directory
 cd Boids-3D-Taichi-SpatialGrid
