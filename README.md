@@ -12,11 +12,18 @@
 
 ## Sobre o Projeto
 
-Este projeto implementa o clássico algoritmo de **Boids** (desenvolvido por Craig Reynolds em 1986) em um ambiente 3D. Em vez de calcular as interações na CPU, a simulação foi construída utilizando a linguagem/biblioteca **Taichi**, o que permite compilar o código Python diretamente para kernels de GPU (Cuda/Vulkan). 
+Este projeto implementa o algoritmo de **Boids** (desenvolvido por Craig Reynolds em 1986) em um ambiente 3D. Em vez de calcular as interações na CPU, a simulação foi construída utilizando a linguagem/biblioteca **Taichi**, o que permite compilar o código Python diretamente para kernels de GPU (Cuda/Vulkan). Além disso, foram implementadas outras técnicas para otimização de processamento.
+
+## Arquitetura e Otimização
+
+Para contornar o gargalo de complexidade O(N²) e executar o processamento em paralelo de forma eficiente, o projeto se apoia em duas técnicas essenciais:
+
+*   **Uniform Spatial Grid:** O espaço 3D é dividido em pequenas células estruturadas em grade, reduzindo o espaço de busca para cada Boid. Assim, cada boid só procura e interage com vizinhos que estão dentro da sua própria célula ou nas células coladas nela.
+*   **Data-Oriented Programming:** A estrutura do código foi implementada pensando em como a placa de vídeo prefere consumir informações. Usando os campos do Taichi, os dados de todos os boids são alinhados sequencialmente na memória. Essa organização garante que a GPU consiga acessar as informações o mais rápido possível.
 
 ## Funcionalidades
 
-A simulação vai além do *flocking* básico e inclui regras avançadas de sobrevivência e física:
+Além de implementar as regras clássicas de *flocking*, a simulação introduz comportamentos e instintos avançados:
 
 *   **Regras Clássicas (Flocking):**
     *   *Coesão:* Boids tentam se aproximar do centro de massa dos vizinhos.
@@ -32,7 +39,7 @@ A simulação vai além do *flocking* básico e inclui regras avançadas de sobr
 ## Como Executar na Sua Máquina
 
 ### Pré-requisitos
-Certifique-se de ter o Python 3.9+ instalado e uma placa de vídeo dedicada (recomendado para alta contagem de partículas).
+Certifique-se de ter o Python 3.9+ instalado e uma placa de vídeo dedicada.
 
 ### Instalação
 ```bash
@@ -52,9 +59,9 @@ python main.py
 
 O projeto inclui um painel de controle interativo onde é possível ajustar as variáveis em tempo real:
 
-* Sliders de Pesos: Altere a intensidade de coesão, separação e medo.
+* Sliders de Pesos: Altere a intensidade de coesão, separação, medo e outras variáveis.
 * Raio de Percepção: Ajuste quão longe cada boid consegue "enxergar".
-* Controle de Câmera: Utilize o Botão Direito do Mouse para rotacionar e navegar no espaço 3D.
+* Controle de Câmera: Utilize o Botão Direito do Mouse para rotacionar e as teclas para navegar no espaço 3D(W, A, S, D, Q, R).
 
 ## Ferramentas e referências
 
