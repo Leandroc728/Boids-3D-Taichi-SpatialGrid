@@ -4,6 +4,3 @@ __pycache__/
 
 # Configurações locais da Interface
 imgui.ini
-
-# Pasta de saída dos GIFs e frames gravados
-output_boids/
