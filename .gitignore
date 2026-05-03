@@ -2,7 +2,7 @@
 __pycache__/
 *.pyc
 
-# Configurações locais da Interface (GUI)
+# Configurações locais da Interface
 imgui.ini
 
 # Pasta de saída dos GIFs e frames gravados
