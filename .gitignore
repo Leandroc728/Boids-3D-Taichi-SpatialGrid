@@ -1,0 +1,9 @@
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Configurações locais da Interface (GUI)
+imgui.ini
+
+# Pasta de saída dos GIFs e frames gravados
+output_boids/
